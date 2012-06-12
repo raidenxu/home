@@ -1,0 +1,28 @@
+altscreen on # erase screen when quit apps
+defutf8 on
+defc1 off # treat input chars 128 ~ 159 as control functions
+defflow on
+vbell off
+#vbell_msg “Ding Ding!!”
+startup_message off
+shell $SHELL
+# 256 Color Support
+term xterm
+termcap xterm "Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm"
+# .... Ctrl+Left & Ctrl+Right ....
+bindkey \033[D prev
+bindkey \033[C next
+# encoding
+defencoding utf8
+#bind b encoding big5 utf8
+bind u encoding utf8 utf8
+defbce on # erase background with current bg color
+shelltitle "-"
+#caption always "%-w%{.mW}[%n]%{+b rk}%H%{gk}"
+#caption always "%{.KW} %-w%{.mW}[%n] %t%{.KW}%+w"
+caption always "%{.BW} %-w%{.k}[%n] %t%{.BW} %+w%=%{.BW}%C %A"
+#caption always "%{.KW} %-w%{.k}[%n] %t%{.KW} %+w%=%{.KW}%C %A"
+#hardstatus alwayslastline "%{R}[ %{w}%C %A %{R}]%=%{M}%10` %{G}%H %{Y}%{R} %d/%m/%Y %{K} Load: %l %{w}"
+
+##binding
+backtick    10  60  60  /home/odin/showLocale.sh
