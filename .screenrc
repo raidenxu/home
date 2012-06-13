@@ -7,13 +7,21 @@ vbell off
 startup_message off
 shell $SHELL
 # 256 Color Support
-term xterm
-termcap xterm "Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm"
+#term xterm
+#termcap xterm "Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm"
+#term screen-256color-bce
+termcapinfo xterm* ti@:te@
+termcapinfo xterm* 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+termcapinfo rxvt* ti@:te@
+termcapinfo rxvt* 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+## rebind function key(replace ^A)
+#escape ^Zz
 # .... Ctrl+Left & Ctrl+Right ....
 bindkey \033[D prev
 bindkey \033[C next
 # encoding
 defencoding utf8
+defscrollback 2048
 #bind b encoding big5 utf8
 bind u encoding utf8 utf8
 defbce on # erase background with current bg color
@@ -25,4 +33,4 @@ caption always "%{.BW} %-w%{.k}[%n] %t%{.BW} %+w%=%{.BW}%C %A"
 #hardstatus alwayslastline "%{R}[ %{w}%C %A %{R}]%=%{M}%10` %{G}%H %{Y}%{R} %d/%m/%Y %{K} Load: %l %{w}"
 
 ##binding
-backtick    10  60  60  /home/odin/showLocale.sh
+#backtick    10  60  60  /home/odin/showLocale.sh
