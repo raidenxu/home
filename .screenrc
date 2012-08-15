@@ -8,12 +8,12 @@ startup_message off
 shell $SHELL
 # 256 Color Support
 term xterm
-termcap xterm "Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm"
+termcap xterm* "Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm"
 #term screen-256color-bce
-termcapinfo xterm* ti@:te@
-termcapinfo xterm* 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
-termcapinfo rxvt* ti@:te@
-termcapinfo rxvt* 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+#termcapinfo xterm* ti@:te@
+#termcapinfo xterm* 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+#termcapinfo rxvt* ti@:te@
+#termcapinfo rxvt* 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
 ## rebind function key(replace ^A)
 #escape ^Zz
 # .... Ctrl+Left & Ctrl+Right ....

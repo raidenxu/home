@@ -16,7 +16,7 @@ alias grep  grep --color=auto -d skip
 # A righteous umask
 umask 2
 
-set path = (/sbin /bin /usr/sbin /usr/bin /usr/games /usr/local/sbin /usr/local/bin /usr/X11R6/bin $HOME/sbin /services/hiphop-php/src/hphp /services/hiphop-php/src/hphpi)
+set path = (/sbin /bin /usr/sbin /usr/bin /usr/games /usr/local/sbin /usr/local/bin /usr/X11R6/bin $HOME/sbin /services/hiphop-php/src/hphp /services/hiphop-php/src/hphpi /Applications/Xcode.app/Contents/Developer/usr/bin)
 
 setenv	EDITOR	vim
 setenv	BLOCKSIZE	K
@@ -59,7 +59,7 @@ if ($?prompt) then
 endif
 
 ##256 color
-setenv TERMCAP 'xterm|xterm-color:Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm:ti@:te@:tc=xterm-256color:'
+#setenv TERMCAP 'xterm|xterm-color:Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm:ti@:te@:tc=xterm-256color:'
 
 ##for hadoop
 setenv  JAVA_HOME   /usr/local/jdk1.6.0
@@ -72,3 +72,12 @@ setenv HPHP_LIB ${HPHP_HOME}/bin
 setenv CMAKE_PREFIX_PATH /services/hipop-php-include
 setenv CC /usr/local/bin/gcc44
 setenv CXX /usr/local/bin/g++44
+
+##
+# Your previous /Users/Odin/.cshrc file was backed up as /Users/Odin/.cshrc.macports-saved_2012-08-08_at_01:18:28
+##
+
+# MacPorts Installer addition on 2012-08-08_at_01:18:28: adding an appropriate PATH variable for use with MacPorts.
+setenv PATH /opt/local/bin:/opt/local/sbin:$PATH
+# Finished adapting your PATH environment variable for use with MacPorts.
+
