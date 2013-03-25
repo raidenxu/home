@@ -1,5 +1,5 @@
 " Maintainer:   Odin <odinmanlee@gmail.com>
-" Last change: 2010-10-20 09:46:16
+" Last change: 2013-03-25 22:43:58
 
 "VIM help tips:
 ":help cmd    find normal mode command
@@ -105,7 +105,10 @@ set viminfo='500                " Sets 500 lines of history VIM har to remember
 if &t_Co > 2 || has("gui_running")
   syntax on
   set t_Co=256
-  colors odinman
+  let g:solarized_termcolors=256
+  set background=dark
+  "colors odinman
+  colors solarized
 
   "internationalization
   "I only work in Win2k Chinese version
@@ -123,9 +126,10 @@ if &t_Co > 2 || has("gui_running")
 
   "if you use vim in tty,
   "'uxterm -cjk' or putty with option 'Treat CJK ambiguous characters as wide' on
-  if has("ambiwidth")
-      set ambiwidth=double
-  endif
+  "if has("ambiwidth")
+  "    set ambiwidth=double
+  "endif
+  set ambiwidth=double
 
   if has("gui_running")
       set guioptions-=l
