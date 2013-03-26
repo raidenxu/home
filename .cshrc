@@ -59,19 +59,8 @@ if ($?prompt) then
 endif
 
 ##256 color
-#setenv TERMCAP 'xterm|xterm-color:Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm:ti@:te@:tc=xterm-256color:'
-
-##for hadoop
-setenv  JAVA_HOME   /usr/local/jdk1.6.0
-setenv  CLASSPATH   ".:/usr/local/jdk1.6.0/lib"
-setenv  ANT_OPTS   "-Djava.net.preferIPv4Stack=true"
-
-##hiphop for php
-setenv HPHP_HOME /services/hiphop-php
-setenv HPHP_LIB ${HPHP_HOME}/bin
-setenv CMAKE_PREFIX_PATH /services/hipop-php-include
-setenv CC /usr/local/bin/gcc44
-setenv CXX /usr/local/bin/g++44
+setenv TERM xterm-color
+setenv TERMCAP 'xterm|xterm-color:Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm:ti@:te@:tc=xterm-256color:'
 
 ##
 # Your previous /Users/Odin/.cshrc file was backed up as /Users/Odin/.cshrc.macports-saved_2012-08-08_at_01:18:28
