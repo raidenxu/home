@@ -1,5 +1,5 @@
 " Maintainer:   Odin <odinmanlee@gmail.com>
-" Last change: 2013-03-25 22:43:58
+" Last change: 2013-03-26 13:36:23
 
 "VIM help tips:
 ":help cmd    find normal mode command
@@ -105,8 +105,11 @@ set viminfo='500                " Sets 500 lines of history VIM har to remember
 if &t_Co > 2 || has("gui_running")
   syntax on
   set t_Co=256
-  let g:solarized_termcolors=256
   set background=dark
+  let g:solarized_termtrans=1
+  let g:solarized_termcolors=256
+  let g:solarized_visibility = "high"
+  let g:solarized_contrast = "high"
   "colors odinman
   colors solarized
 
