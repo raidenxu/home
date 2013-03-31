@@ -34,13 +34,14 @@ ZSH_THEME="odin"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 #plugins=(git osx svn ccmd gnu-utils)
-plugins=(git osx svn screen history-substring-search zsh-syntax-highlighting)
+plugins=(git osx svn screen zsh-vim-mode history-substring-search zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 export PATH=/opt/local/bin:/opt/local/sbin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:/usr/X11R6/bin:/Users/Odin/sbin:/services/hiphop-php/src/hphp:/services/hiphop-php/src/hphpi:/Applications/Xcode.app/Contents/Developer/usr/bin
 
+## zsh-syntax-highlighting configuration
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 # To have paths colored instead of underlined
 ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
