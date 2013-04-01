@@ -1,5 +1,5 @@
 " Maintainer:   Odin <odinmanlee@gmail.com>
-" Last change: 2013-03-26 13:36:23
+" Last change: 2013-04-01 11:37:02
 
 "VIM help tips:
 ":help cmd    find normal mode command
@@ -78,9 +78,9 @@ function! MySys()
   return "FreeBSD"
 endfunction
 
-"Set shell to be tcsh
+"Set shell to be zsh
 if MySys() == "FreeBSD" || MySys() == "mac"
-  set shell=tcsh
+  set shell=zsh
 endif
 
 "Enable filetype plugin
