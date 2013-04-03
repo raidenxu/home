@@ -34,7 +34,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 #plugins=(git osx svn ccmd gnu-utils)
-plugins=(git osx svn zsh-vim-mode history-substring-search zsh-syntax-highlighting)
+plugins=(git osx svn history-substring-search zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -44,5 +44,8 @@ export PATH=/opt/local/bin:/opt/local/sbin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/ga
 ## zsh-syntax-highlighting configuration
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 # To have paths colored instead of underlined
-ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
+ZSH_HIGHLIGHT_STYLES[path]='fg=blue'
 ZSH_HIGHLIGHT_STYLES[command]='fg=yellow'
+
+##for faster vim
+alias vim="/Applications/MacPorts/MacVim.app/Contents/MacOS/Vim"
