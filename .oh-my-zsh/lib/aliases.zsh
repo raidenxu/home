@@ -24,3 +24,5 @@ alias sl=ls # often screw this up
 
 alias afind='ack-grep -il'
 
+#tree
+alias tree='tree -C'
