@@ -556,6 +556,7 @@ exe "hi! Float"       .s:fmt_none   .s:fg_base1   .s:bg_none
 "        Float           a floating point constant: 2.3e10
 
 exe "hi! Identifier"     .s:fmt_none   .s:fg_blue   .s:bg_none
+exe "hi! Function"     .s:fmt_none   .s:fg_yellow   .s:bg_none
 "       *Identifier      any variable name
 "        Function        function name (also: methods for classes)
 "
