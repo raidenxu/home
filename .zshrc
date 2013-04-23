@@ -48,4 +48,21 @@ ZSH_HIGHLIGHT_STYLES[path]='fg=blue'
 ZSH_HIGHLIGHT_STYLES[command]='fg=yellow'
 
 ##for faster vim
-alias vim="/Applications/MacPorts/MacVim.app/Contents/MacOS/Vim"
+if [ -e "/Applications/MacPorts/MacVim.app/Contents/MacOS/Vim" ]; then
+    alias vim="/Applications/MacPorts/MacVim.app/Contents/MacOS/Vim"
+    alias vi="vim" # using vim as PAGER(http://www.vim.org/scripts/script.php?script_id=1723)
+    export PAGER="~/vim_setting/sbin/vimpager"
+    alias less=$PAGER
+elif [ -e `which vim` ]; then
+    alias vi="vim" # using vim as PAGER(http://www.vim.org/scripts/script.php?script_id=1723)
+    export PAGER="~/vim_setting/sbin/vimpager"
+    alias less=$PAGER
+fi
+export EDITOR=vim
+
+## self alias
+alias tree='tree -C'
+
+##Chinese support
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
