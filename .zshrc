@@ -43,7 +43,7 @@ plugins=(git osx svn tmux zsh-vim-mode history-substring-search zsh-syntax-highl
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH="/opt/local/bin:/opt/local/sbin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:/usr/X11R6/bin:~/sbin:/services/hiphop-php/src/hphp:/services/hiphop-php/src/hphpi:/Applications/Xcode.app/Contents/Developer/usr/bin"
+export PATH="/opt/local/bin:/opt/local/sbin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:/usr/X11R6/bin:/Users/Odin/sbin:/services/hiphop-php/src/hphp:/services/hiphop-php/src/hphpi:/Applications/Xcode.app/Contents/Developer/usr/bin"
 
 ## zsh-syntax-highlighting configuration
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
