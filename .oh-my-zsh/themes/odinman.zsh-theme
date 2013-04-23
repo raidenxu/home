@@ -1,34 +1,34 @@
-# ------------------------------------------------------------------------
-# Tyler Cipriani 
-# oh-my-zsh theme
-# Totally ripped off Dallas theme
-# ------------------------------------------------------------------------
+# Clean, simple, compatible and meaningful.
+# Tested on Linux, Unix and Windows under ANSI colors.
+# It is recommended to use with a dark background and the font Inconsolata.
+# Colors: black, red, green, yellow, *blue, magenta, cyan, and white.
+# 
+# http://ysmood.org/wp/2013/03/my-ys-terminal-theme/
+# Mar 2013 ys
 
-# Grab the current date (%W) and time (%t):
-JUNKFOOD_TIME_="%{$fg_bold[red]%}#%{$fg_bold[white]%}( %{$fg_bold[yellow]%}%W%{$reset_color%}@%{$fg_bold[white]%}%t )( %{$reset_color%}"
+# Machine name.
+function box_name {
+    [ -f ~/.box-name ] && cat ~/.box-name || hostname -s
+}
 
-# Grab the current machine name 
-JUNKFOOD_MACHINE_="%{$fg_bold[blue]%}%m%{$fg[white]%} ):%{$reset_color%}"
+# Directory info.
+local current_dir='${PWD/#$HOME/~}'
 
-# Grab the current username 
-JUNKFOOD_CURRENT_USER_="%{$fg_bold[green]%}%n%{$reset_color%}"
-
-# Grab the current filepath, use shortcuts: ~/Desktop
-# Append the current git branch, if in a git repository: ~aw@master
-JUNKFOOD_LOCA_="%{$fg[cyan]%}%~\$(git_prompt_info)%{$reset_color%}"
-
-# For the git prompt, use a white @ and blue text for the branch name
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[white]%}@%{$fg_bold[white]%}"
-
-# Close it all off by resetting the color and styles.
+# Git info.
+local git_info='$(git_prompt_info)'
+ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg[white]%}on%{$reset_color%} git:%{$fg[cyan]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_DIRTY=" %{$fg[red]%}x"
+ZSH_THEME_GIT_PROMPT_CLEAN=" %{$fg[green]%}o"
 
-# Do nothing if the branch is clean (no changes).
-ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}✔"
-
-# Add 3 cyan ✗s if this branch is diiirrrty! Dirty branch!
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg_bold[red]%}✗✗✗"
-
-# Put it all together!
-PROMPT="$JUNKFOOD_TIME_$JUNKFOOD_CURRENT_USER_@$JUNKFOOD_MACHINE_$JUNKFOOD_LOCA_
-%{$reset_color%}%{$fg[red]%}❯%{$reset_color%} "
+# Prompt format: \n # USER at MACHINE in DIRECTORY on git:BRANCH STATE [TIME] \n $ 
+PROMPT="
+%{$terminfo[bold]$fg[blue]%}#%{$reset_color%} \
+%{$fg[cyan]%}%n \
+%{$fg[white]%}at \
+%{$fg[green]%}$(box_name) \
+%{$fg[white]%}in \
+%{$terminfo[bold]$fg[yellow]%}${current_dir}%{$reset_color%}\
+${git_info} \
+%{$fg[white]%}[%*]
+%{$terminfo[bold]$fg[red]%}$ %{$reset_color%}"
