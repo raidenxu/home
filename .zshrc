@@ -6,7 +6,11 @@ ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 #ZSH_THEME="robbyrussell"
-ZSH_THEME="odin"
+if [ `hostname` = 'Odin-Pro.local' ]; then
+    ZSH_THEME="odin"
+else
+    ZSH_THEME="crcandy"
+fi
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -34,7 +38,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 #plugins=(git osx svn ccmd gnu-utils)
-plugins=(git osx svn zsh-vim-mode history-substring-search zsh-syntax-highlighting)
+plugins=(git osx svn tmux zsh-vim-mode history-substring-search zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -66,3 +70,13 @@ alias tree='tree -C'
 ##Chinese support
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
+
+##hiphop
+export HPHP_HOME="/services/hiphop/hiphop-php"
+export HPHP_LIB="${HPHP_HOME}/bin"
+export CMAKE_PREFIX_PATH=/services/hiphop/local
+export Boost_LIBRARYDIR=/services/hiphop/local/include/boost
+export CC=/usr/bin/gcc
+export CXX=/usr/bin/g++
+
+export PATH=/services/hiphop/hiphop-php/src/hphp:/services/hiphop/hiphop-php/src/hhvm:$PATH
