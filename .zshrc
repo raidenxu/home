@@ -82,3 +82,5 @@ export CXX=/usr/bin/g++
 export PATH=/services/hiphop/hiphop-php/src/hphp:/services/hiphop/hiphop-php/src/hhvm:$PATH
 
 export TERM="xterm-256color"
+##freebsd
+export TERMCAP='xterm|xterm-256color:Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm:ti@:te@:tc=xterm-256color:'
