@@ -9,7 +9,7 @@
   +----------------------------------------------------------------------+
   | Created:2012-06-12 17:10:29                              |
   +----------------------------------------------------------------------+
-  | Last-Modified:2013-05-14 10:21:51                        |
+  | Last-Modified:2013-05-14 10:26:49                        |
   +----------------------------------------------------------------------+
 */
 
@@ -54,11 +54,11 @@ try {
         curl_setopt($ch, CURLOPT_HEADER, 1);
         $output = curl_exec($ch);
         $info = curl_getinfo($ch);
-        $infoStr=var_export($info,true);
-        $fp=@fopen("/tmp/yueche","w+");
-        fputs($fp,$output."\n");
-        fputs($fp,$infoStr);
-        fclose($fp);
+        //$infoStr=var_export($info,true);
+        //$fp=@fopen("/tmp/yueche","w+");
+        //fputs($fp,$output."\n");
+        //fputs($fp,$infoStr);
+        //fclose($fp);
         if ($info['http_code']==200) {
             $findCar=true;
             $loop++;
@@ -87,6 +87,8 @@ try {
                 _debug("[sendmail:{$subject}]",_DLV_WARNING);
                 $interval=600;  //间隔改为10分钟
             }
+            pcntl_signal_dispatch();
+            sleep($interval);
         } else {    //登录失败
             $GLOBALS['loginOnCookie']='';   //置空
 
@@ -95,8 +97,6 @@ try {
             _debug("[loginOnCookie: {$GLOBALS['loginOnCookie']}]",_DLV_WARNING);
         }
         curl_close($ch);
-        pcntl_signal_dispatch();
-        sleep($interval);
         if ($loop>$GLOBALS['_yueche']['loop']) {
             $run=false;
         }
