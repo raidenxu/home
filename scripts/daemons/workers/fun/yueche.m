@@ -9,7 +9,7 @@
   +----------------------------------------------------------------------+
   | Created:2013-05-13 18:10:23                              |
   +----------------------------------------------------------------------+
-  | Last-Modified:2013-05-13 18:19:07                        |
+  | Last-Modified:2013-05-13 21:56:54                        |
   +----------------------------------------------------------------------+
 */
 function _loginSite($ua,$loginURL,$imgURL) {
@@ -75,7 +75,7 @@ function _loginSite($ua,$loginURL,$imgURL) {
             }
         }
         //read gif
-        $cmd="/opt/local/bin/gocr -m 4 /tmp/login.gif";
+        $cmd="{$GLOBALS['_OCR']} -m 4 /tmp/login.gif";
         $verStr=@exec($cmd);
         if (preg_match("/^[0-9a-zA-Z]{4}$/",$verStr)) {
             _debug("[".__FUNCTION__."]verify:{$verStr}][maybe_right]",_DLV_WARNING);

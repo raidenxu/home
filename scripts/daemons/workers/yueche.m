@@ -9,7 +9,7 @@
   +----------------------------------------------------------------------+
   | Created:2012-06-12 17:10:29                              |
   +----------------------------------------------------------------------+
-  | Last-Modified:2013-05-13 18:51:44                        |
+  | Last-Modified:2013-05-14 00:02:41                        |
   +----------------------------------------------------------------------+
 */
 
@@ -17,12 +17,20 @@ if (!isset($lastRun)) {
     $lastRun=0;
     $interval=20;   //20秒去看一眼
 }
+$loop=0;
 try {
     $loginURL='http://114.242.121.99/login.aspx';
     $imgURL='http://114.242.121.99/tools/CreateCode.ashx?key=ImgCode&random=0.9396288357675076';
     $yuecheURL='http://114.242.121.99/ych2.aspx';
     $findCar=false;
-    while($findCar===false) {
+    $nowTime=date('Hi');
+    $run=false;
+    if ($nowTime>=$GLOBALS['runTime']['begin'] && $nowTime<=$GLOBALS['runTime']['end']) {
+        $run=true;
+    } else {
+        _debug("[time_wrong:".date('Y-m-d H:i:s')."]",_DLV_ERROR);
+    }
+    while($run===true) {
         $ch = curl_init();
         //curl_setopt($ch, CURLOPT_CONNECTTIMEOUT_MS,3000);
         //curl_setopt($ch, CURLOPT_TIMEOUT_MS, 5000);
@@ -53,6 +61,7 @@ try {
         fclose($fp);
         if ($info['http_code']==200) {
             $findCar=true;
+            $loop++;
             if (!empty($GLOBALS['cDate'])) {
                 foreach($GLOBALS['cDate'] as $dStr) {
                     $yuecheinfo="yyrq='{$dStr}'\r\n.+yysd=\"15\">\r\n(.+)\r\n";
@@ -86,10 +95,15 @@ try {
             _debug("[loginOnCookie: {$GLOBALS['loginOnCookie']}]",_DLV_WARNING);
         }
         curl_close($ch);
+        sleep($interval);
+        if ($loop>$GLOBALS['_yueche']['loop']) {
+            $run=false;
+        }
     }
 
     pcntl_signal_dispatch();
 
+    sleep(1);
     //sleep($interval);
 } catch (Exception $e) {
     _debug("[Caught Exception:".$e->getMessage()."]",_DLV_ERROR);
