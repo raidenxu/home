@@ -9,7 +9,7 @@
   +----------------------------------------------------------------------+
   | Created:2012-06-12 17:10:29                              |
   +----------------------------------------------------------------------+
-  | Last-Modified:2013-05-14 10:26:49                        |
+  | Last-Modified:2013-05-15 12:58:06                        |
   +----------------------------------------------------------------------+
 */
 
@@ -22,7 +22,6 @@ try {
     $loginURL='http://114.242.121.99/login.aspx';
     $imgURL='http://114.242.121.99/tools/CreateCode.ashx?key=ImgCode&random=0.9396288357675076';
     $yuecheURL='http://114.242.121.99/ych2.aspx';
-    $findCar=false;
     $nowTime=date('Hi');
     $run=false;
     if ($nowTime>=$GLOBALS['runTime']['begin'] && $nowTime<=$GLOBALS['runTime']['end']) {
@@ -60,7 +59,7 @@ try {
         //fputs($fp,$infoStr);
         //fclose($fp);
         if ($info['http_code']==200) {
-            $findCar=true;
+            $sendmail=false;
             $loop++;
             if (!empty($GLOBALS['cDate'])) {
                 foreach($GLOBALS['cDate'] as $dStr) {
