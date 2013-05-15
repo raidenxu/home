@@ -9,7 +9,7 @@
   +----------------------------------------------------------------------+
   | Created:2012-06-12 17:10:29                              |
   +----------------------------------------------------------------------+
-  | Last-Modified:2013-05-15 12:58:06                        |
+  | Last-Modified:2013-05-15 19:06:27                        |
   +----------------------------------------------------------------------+
 */
 
@@ -96,6 +96,12 @@ try {
             _debug("[loginOnCookie: {$GLOBALS['loginOnCookie']}]",_DLV_WARNING);
         }
         curl_close($ch);
+        $nowTime=date('Hi');
+        if ($nowTime>=$GLOBALS['runTime']['begin'] && $nowTime<=$GLOBALS['runTime']['end']) {
+            _debug("[time_right:".date('Y-m-d H:i:s')."]",_DLV_ERROR);
+        } else {
+            $run=false;
+        }
         if ($loop>$GLOBALS['_yueche']['loop']) {
             $run=false;
         }
