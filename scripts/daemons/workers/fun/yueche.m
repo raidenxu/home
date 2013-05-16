@@ -9,7 +9,7 @@
   +----------------------------------------------------------------------+
   | Created:2013-05-13 18:10:23                              |
   +----------------------------------------------------------------------+
-  | Last-Modified:2013-05-13 21:56:54                        |
+  | Last-Modified:2013-05-16 09:56:03                        |
   +----------------------------------------------------------------------+
 */
 function _loginSite($ua,$loginURL,$imgURL) {
@@ -75,7 +75,7 @@ function _loginSite($ua,$loginURL,$imgURL) {
             }
         }
         //read gif
-        $cmd="{$GLOBALS['_OCR']} -m 4 /tmp/login.gif";
+        $cmd="{$GLOBALS['_OCR']} -m 4 /tmp/login.gif 2>>/dev/null";
         $verStr=@exec($cmd);
         if (preg_match("/^[0-9a-zA-Z]{4}$/",$verStr)) {
             _debug("[".__FUNCTION__."]verify:{$verStr}][maybe_right]",_DLV_WARNING);
@@ -121,6 +121,14 @@ function _loginSite($ua,$loginURL,$imgURL) {
             _debug("[".__FUNCTION__."]verify:{$verStr}][wrong]",_DLV_WARNING);
         }
         sleep(1);
+        //time
+        $nowTime=date('Hi');
+        if ($nowTime>=$GLOBALS['runTime']['begin'] && $nowTime<=$GLOBALS['runTime']['end']) {
+            _debug("[".__FUNCTION__."][time_right:".date('Y-m-d H:i:s')."]",_DLV_INFO);
+        } else {
+            _debug("[".__FUNCTION__."][time_wrong:".date('Y-m-d H:i:s')."]",_DLV_INFO);
+            break;
+        }
     }
 }
 
