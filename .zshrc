@@ -78,5 +78,12 @@ export CMAKE_PREFIX_PATH=/services/hiphop/local
 export Boost_LIBRARYDIR=/services/hiphop/local/include/boost
 export CC=/usr/bin/gcc
 export CXX=/usr/bin/g++
-
 export PATH=/services/hiphop/hiphop-php/src/hphp:/services/hiphop/hiphop-php/src/hhvm:$PATH
+
+##odin dev
+export ODEVROOT=$HOME/dev
+export OSTUDYROOT=$HOME/study
+
+##golang
+export GOROOT=/usr/local/go
+export PATH=$PATH:$GOROOT/bin
