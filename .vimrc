@@ -1,5 +1,5 @@
 " Maintainer:   Odin <odinmanlee@gmail.com>
-" Last change: 2013-04-01 11:37:02
+" Last change: 2013-06-27 14:15:12
 
 "VIM help tips:
 ":help cmd    find normal mode command
@@ -644,3 +644,11 @@ MapToggle <F7> scrollbind
 
 
 
+" Some Linux distributions set filetype in /etc/vimrc.
+" Clear filetype flags before changing runtimepath to force Vim to reload them.
+filetype off
+filetype plugin indent off
+"set runtimepath+=$GOROOT/misc/vim
+set runtimepath+=$ODEVROOT/git/github/vim-golang
+filetype plugin indent on
+syntax on

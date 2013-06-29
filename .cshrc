@@ -59,7 +59,7 @@ if ($?prompt) then
 endif
 
 ##256 color
-setenv TERM xterm-color
+setenv TERM screen-bce
 setenv TERMCAP 'xterm|xterm-color:Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm:ti@:te@:tc=xterm-256color:'
 
 ##
@@ -67,6 +67,6 @@ setenv TERMCAP 'xterm|xterm-color:Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm:ti@:te@:t
 ##
 
 # MacPorts Installer addition on 2012-08-08_at_01:18:28: adding an appropriate PATH variable for use with MacPorts.
-setenv PATH /opt/local/bin:/opt/local/sbin:$PATH
+setenv PATH ~/home/scripts:/opt/local/bin:/opt/local/sbin:$PATH
 # Finished adapting your PATH environment variable for use with MacPorts.
 
