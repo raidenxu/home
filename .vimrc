@@ -18,8 +18,8 @@ set ambiwidth=double
 " => indent
 set expandtab                                                " 在输入 tab 后, vim 用恰当的空格来填充这个 tab.
 set shiftwidth=4                                             " 设置自动缩进 4 个空格
-set tabstop=4                                                " 实际的 tab 即为 8 个空格, tabstop = 4 is better for c programming
 set softtabstop=4                                            " insert mode tab and backspace use 2 spaces
+set tabstop=8                                                " 实际的 tab 即为 8 个空格, tabstop = 4 is better for c programming
 set autoindent                                               "Auto indent
 set smartindent                                              "Smart indet
 "set cindent                                                 "C-style indenting
@@ -96,7 +96,7 @@ set statusline+=\ %r%{CurDir()}%h               " 显示当前目录
 set statusline+=\ %h%1*%m%r%w%0*                " flag
 
 " Enable basic mouse behavior such as resizing buffers.
-set mouse=a
+"set mouse=a
 if exists('$TMUX')  " Support resizing in tmux
   set ttymouse=xterm2
 endif
