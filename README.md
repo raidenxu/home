@@ -1,10 +1,14 @@
-Odin's UNIX/Linux Home Dir Setting
-====
+# Odin's UNIX/Linux Home Dir Setting
+
+For Mac OS X, FreeBSD, Linux
 
 
-# Others
+## What's in it?
+* [vimsetting]
 
-## term screen
+## Others
+
+### term screen
 
     infocmp | sed -e 's/[sr]mcup=[^,]*,//' > /tmp/noaltscreen-terminfo
-    $tic -o ~/.terminfo/ /tmp/noaltscreen-terminfo
+    tic -o ~/.terminfo/ /tmp/noaltscreen-terminfo
