@@ -328,10 +328,10 @@ nmap <leader>fd :se ff=dos<cr>
 nmap <leader>fu :se ff=unix<cr>
 map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 " => Move a line of text using control
-nmap <C-j> mz:m+<cr>`z
-nmap <C-k> mz:m-2<cr>`z
-vmap <C-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <C-k> :m'<-2<cr>`>my`<mzgv`yo`z
+"nmap <C-j> mz:m+<cr>`z
+"nmap <C-k> mz:m-2<cr>`z
+"vmap <C-j> :m'>+<cr>`<my`>mzgv`yo`z
+"vmap <C-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
 " plugin NERDTree
 nmap <F1> :NERDTreeToggle<CR>
