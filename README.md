@@ -1,11 +1,10 @@
-home
+Odin's UNIX/Linux Home Dir Setting
 ====
 
-UNIX/Linux Home Dir
 
-infocmp | sed -e 's/[sr]mcup=[^,]*,//' > /tmp/noaltscreen-terminfo 
+# Others
 
-tic -o ~/.terminfo/ /tmp/noaltscreen-terminfo
+## term screen
 
-hello
-
+    infocmp | sed -e 's/[sr]mcup=[^,]*,//' > /tmp/noaltscreen-terminfo
+    $tic -o ~/.terminfo/ /tmp/noaltscreen-terminfo
