@@ -8,14 +8,20 @@ filetype plugin indent on
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => enable syntax highlighting
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => system inv
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set shell=zsh
 set ambiwidth=double
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => indent
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set expandtab                                                " 在输入 tab 后, vim 用恰当的空格来填充这个 tab.
 set shiftwidth=4                                             " 设置自动缩进 4 个空格
 set softtabstop=4                                            " insert mode tab and backspace use 2 spaces
@@ -25,16 +31,20 @@ set smartindent                                              "Smart indet
 "set cindent                                                 "C-style indenting
 "set cino=:0g0t0(sus                                         " values control how cindent indent code
 set wrap                                                     "Wrap line
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => encoding
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let &termencoding = &encoding
 set encoding=utf-8
 set fileencodings=utf-8,ucs-bom,cp936,big5,euc-jp,euc-kr,latin1
 
-" => cursorline
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => vim ui
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set cursorline
 set cursorcolumn
 
-" => vim ui
 set autoread                                                 " reload files when changed on disk, i.e. via `git checkout`
 set backspace=2                                              " Fix broken backspace in some setups
 set backupcopy=yes                                           " see :help crontab
@@ -66,7 +76,9 @@ set showcmd                                                  " display incomplet
 "set showmode                                                 " show editor mode, such as command, insert or replace, visual as messa
 "set confirm                                                  " with dialog support confirm({msg} [, {choices} [, {default} [, {type}]]])
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set t_Co=256
 set background=dark
 let g:solarized_termtrans=1
@@ -75,11 +87,21 @@ let g:solarized_visibility = "high"
 let g:solarized_contrast = "high"
 colors solarized
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Fileformat
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set fileformats=unix,dos
 let g:explHideFiles='^\.,\.com$,\.doc$,\.pdf$,\.dvi$,\.gz$,\.exe$,\.zip$ \.ps$,\.ppt$'
 
+" Enable basic mouse behavior such as resizing buffers.
+"set mouse=a
+if exists('$TMUX')  " Support resizing in tmux
+  set ttymouse=xterm2
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Statusline
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set laststatus=2
 function! CurDir()
     let curdir = substitute(getcwd(), '/home/odin/', "~/", "g")
@@ -95,23 +117,6 @@ set statusline+=\ (%l,%c)                       " 显示行数,列数
 set statusline+=\ %r%{CurDir()}%h               " 显示当前目录
 set statusline+=\ %h%1*%m%r%w%0*                " flag
 
-" Enable basic mouse behavior such as resizing buffers.
-"set mouse=a
-if exists('$TMUX')  " Support resizing in tmux
-  set ttymouse=xterm2
-endif
-
-" => Parenthesis/bracket expanding
-vnoremap $1 <esc>`>a)<esc>`<i(<esc>
-"加()
-vnoremap $2 <esc>`>a]<esc>`<i[<esc>
-"加[]
-vnoremap $3 <esc>`>a}<esc>`<i{<esc>
-"加{}
-vnoremap $$ <esc>`>a"<esc>`<i"<esc>
-"加""
-vnoremap $q <esc>`>a'<esc>`<i'<esc>
-"加''
 
 """"""""""""""""""""""""""""""
 " => Folding
@@ -328,10 +333,10 @@ nmap <leader>fd :se ff=dos<cr>
 nmap <leader>fu :se ff=unix<cr>
 map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 " => Move a line of text using control
-"nmap <C-j> mz:m+<cr>`z
-"nmap <C-k> mz:m-2<cr>`z
-"vmap <C-j> :m'>+<cr>`<my`>mzgv`yo`z
-"vmap <C-k> :m'<-2<cr>`>my`<mzgv`yo`z
+nmap <C-j> mz:m+<cr>`z
+nmap <C-k> mz:m-2<cr>`z
+vmap <C-j> :m'>+<cr>`<my`>mzgv`yo`z
+vmap <C-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
 " plugin NERDTree
 nmap <F1> :NERDTreeToggle<CR>
@@ -343,7 +348,18 @@ map <F5> zR
 map <F8> zM
 map <F9> <C-a>
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Parenthesis/bracket expanding
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+vnoremap $1 <esc>`>a)<esc>`<i(<esc> "加()
+vnoremap $2 <esc>`>a]<esc>`<i[<esc> "加[]
+vnoremap $3 <esc>`>a}<esc>`<i{<esc> "加{}
+vnoremap $$ <esc>`>a"<esc>`<i"<esc> "加""
+vnoremap $q <esc>`>a'<esc>`<i'<esc> "加''
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Map key to toggle opt
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function MapToggle(key, opt)
   let cmd = ':set '.a:opt.'! \| set '.a:opt."?\<CR>"
   exec 'nnoremap '.a:key.' '.cmd
@@ -359,18 +375,24 @@ MapToggle <F6> list
 " Behavior-altering option toggles
 MapToggle <F7> scrollbind
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if executable('ag')
   let g:ackprg = 'ag --nogroup --column'
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   " Use Ag over Grep
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   set grepprg=ag\ --nogroup\ --nocolor
 
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Fix Cursor in TMUX
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if exists('$TMUX')
   let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
   let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
