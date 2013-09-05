@@ -44,19 +44,18 @@ set fileencodings=utf-8,ucs-bom,cp936,big5,euc-jp,euc-kr,latin1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set cursorline
 set cursorcolumn
-
 set autoread                                                 " reload files when changed on disk, i.e. via `git checkout`
 set backspace=2                                              " Fix broken backspace in some setups
 set backupcopy=yes                                           " see :help crontab
 set clipboard=unnamed                                        " yank and paste with the system clipboard
 set directory-=.                                             " don't store swapfiles in the current directory
-"set ignorecase                                               " case-insensitive search
+set ignorecase                                               " case-insensitive search
 set laststatus=2                                             " always show statusline
-"set list                                                     " show trailing whitespace
+set list                                                     " show trailing whitespace
 set listchars=tab:▸\ ,trail:▫
 set ruler                                                    " show where you are
 set scrolloff=3                                              " show context above/below cursorline
-"set smartcase                                                " case-sensitive search if any caps
+set smartcase                                                " case-sensitive search if any caps
 set wildignore=log/**,node_modules/**,target/**,tmp/**,*.rbc
 set wildmenu                                                 " show a navigable menu for tab completion
 set wildmode=longest,list,full
@@ -66,15 +65,15 @@ set cmdheight=1                                              " The commandbar is
 set whichwrap+=b,s,<,>,[,],h,l                               " Bbackspace and cursor keys wrap to
 set incsearch                                                " 随打随找
 set hlsearch                                                 " highlight search content
-"set showmatch                                                " show matching bracet
-"set matchtime=5                                              " show matching time
-"set mat=3                                                    " How many tenths of a second to blink
-"set formatoptions=tcrqmB
-"set splitbelow
-"set nostartofline
+set showmatch                                                " show matching bracet
+set matchtime=5                                              " show matching time
+set mat=3                                                    " How many tenths of a second to blink
+set formatoptions=tcrqmB
+set splitbelow
+set nostartofline
 set showcmd                                                  " display incomplete command
-"set showmode                                                 " show editor mode, such as command, insert or replace, visual as messa
-"set confirm                                                  " with dialog support confirm({msg} [, {choices} [, {default} [, {type}]]])
+set showmode                                                 " show editor mode, such as command, insert or replace, visual as messa
+set confirm                                                  " with dialog support confirm({msg} [, {choices} [, {default} [, {type}]]])
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors
