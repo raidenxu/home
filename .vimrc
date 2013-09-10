@@ -42,6 +42,7 @@ set fileencodings=utf-8,ucs-bom,cp936,big5,euc-jp,euc-kr,latin1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vim ui
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set hidden                                                   " switch buffers without save
 set cursorline
 set cursorcolumn
 set autoread                                                 " reload files when changed on disk, i.e. via `git checkout`
