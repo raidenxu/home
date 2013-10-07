@@ -1,17 +1,25 @@
-set runtimepath+=~/vim_setting,~/vim_setting/after
-set runtimepath+=$ODEVROOT/git/github/vim-golang
-" set up pathogen, https://github.com/tpope/vim-pathogen
-filetype off
-call pathogen#infect()
-filetype plugin indent on
-" Use Vim settings, rather then Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
+" don't bother with vi compatibility
 set nocompatible
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => enable syntax highlighting
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" enable syntax highlighting
 syntax enable
+
+set runtimepath+=$ODEVROOT/git/github/vim-golang
+
+" configure Vundle
+filetype on " without this vim emits a zero exit status, later, because of :ft off
+filetype off
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" install Vundle bundles
+if filereadable(expand("~/.vimrc.bundles"))
+  source ~/.vimrc.bundles
+  source ~/.vimrc.bundles.local
+endif
+
+" ensure ftdetect et al work by including this after the Vundle stuff
+filetype plugin indent on
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => system inv
@@ -183,6 +191,11 @@ iab owdate <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
   "let php_folding=1
   "let php_noShortTags=1
 
+  """"""""""""""""""""""""""""""
+  " Golang section
+  """"""""""""""""""""""""""""""
+  autocmd BufNewFile,BufRead *.go   setlocal filetype=go       " .go is go
+
 
   """"""""""""""""""""""""""""""
   " Python section
@@ -227,7 +240,7 @@ iab owdate <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
   autocmd FileType java inoremap <buffer> <C-t> System.out.println();<esc>hi
 
   "Java comments
-  autocmd FileType java source ~/vim_setting/macros/jcommenter.vim
+  autocmd FileType java source ~/.vim/macros/jcommenter.vim
   autocmd FileType java let b:jcommenter_class_author='Odin Lee (odin@madhouse-inc.com)'
   autocmd FileType java let b:jcommenter_file_author='Odin Lee (odin@madhouse-inc.com)'
   autocmd FileType java map <buffer> <F2> :call JCommentWriter()<cr>
