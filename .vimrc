@@ -180,7 +180,7 @@ iab owdate <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
   " Ruby & PHP section
   """"""""""""""""""""""""""""""
   autocmd BufNewFile,BufRead *.m   setlocal filetype=php       " .m is php
-  autocmd BufNewFile *.m,*.php 0r ~/vim_setting/skeleton/skeleton.php
+  autocmd BufNewFile *.m,*.php 0r ~/.vim/skeleton/skeleton.php
   autocmd FileType ruby map <buffer> <leader><space> :w!<cr>:!ruby %<cr>
   autocmd FileType php compiler php
   autocmd FileType php map <buffer> <leader><space> <leader>cd:w<cr>:make %<cr>
@@ -201,9 +201,9 @@ iab owdate <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
   " Python section
   """"""""""""""""""""""""""""""
   "Run the current buffer in python - ie. on leader+space
-  autocmd FileType python so ~/vim_setting/syntax/python.vim
+  autocmd FileType python so ~/.vim/syntax/python.vim
   autocmd FileType python map <buffer> <leader><space> :w!<cr>:!python %<cr>
-  autocmd FileType python so ~/vim_setting/plugin/python_fold.vim
+  autocmd FileType python so ~/.vim/plugin/python_fold.vim
 
   "Set some bindings up for 'compile' of python
   autocmd FileType python set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
