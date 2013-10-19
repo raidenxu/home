@@ -1,4 +1,5 @@
 #!/bin/zsh
+unset TMUX
 default_sessionname="Odin"
 if [ -z $2 ]; then
     SESSIONNAME=${default_sessionname}
@@ -9,8 +10,12 @@ tmux has-session -t $SESSIONNAME &> /dev/null
 
 if [ $? != 0 ]; then
     tmux new-session -s ${SESSIONNAME} -d
-    #tmux send-keys -t $SESSIONNAME "~/home/scripts/otmux" C-m 
-    tmux new-window -k -t ${SESSIONNAME}:1 -n base
+
+    #tmux send-keys -t $SESSIONNAME "~/home/scripts/otmux" C-m
+    tmux new-window -k -t ${SESSIONNAME}:0 -n odin
+
+    tmux new-window -k -t ${SESSIONNAME}:1 -n git
+    tmux send-keys -t ${SESSIONNAME}:1 "cd ~/dev/git" C-m
 
     tmux new-window -k -t ${SESSIONNAME}:2 -n svn
     tmux send-keys -t ${SESSIONNAME}:2 "cd ~/dev/svn" C-m
@@ -20,6 +25,15 @@ if [ $? != 0 ]; then
 
     tmux new-window -k -t ${SESSIONNAME}:4 -n arch
     tmux send-keys -t ${SESSIONNAME}:4 "cd ~/dev/git/madhouse/architect" C-m
+
+    tmux new-window -k -t ${SESSIONNAME}:5 -n cm
+    tmux send-keys -t ${SESSIONNAME}:5 "cd ~/dev/git/cm-codes" C-m
+
+    tmux new-window -k -t ${SESSIONNAME}:6 -n erlang
+    tmux send-keys -t ${SESSIONNAME}:6 "cd ~/study/erlang" C-m
+
+    tmux new-window -k -t ${SESSIONNAME}:7 -n golang
+    tmux send-keys -t ${SESSIONNAME}:7 "cd ~/study/golang" C-m
 fi
 
 tmux attach -t $SESSIONNAME
