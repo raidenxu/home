@@ -60,7 +60,7 @@ set clipboard=unnamed                                        " yank and paste wi
 set directory-=.                                             " don't store swapfiles in the current directory
 set ignorecase                                               " case-insensitive search
 set laststatus=2                                             " always show statusline
-set list                                                     " show trailing whitespace
+set nolist                                                     " show trailing whitespace
 set listchars=tab:▸\ ,trail:▫
 set ruler                                                    " show where you are
 set scrolloff=3                                              " show context above/below cursorline
