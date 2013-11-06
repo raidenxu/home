@@ -351,6 +351,13 @@ nmap <C-k> mz:m-2<cr>`z
 vmap <C-j> :m'>+<cr>`<my`>mzgv`yo`z
 vmap <C-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
+"for delete register
+nnoremap d "_d
+nnoremap s "_s
+vnoremap d "_d
+vnoremap s "_s
+vnoremap <leader>p "_dP
+
 " plugin NERDTree
 nmap <F1> :NERDTreeToggle<CR>
 
