@@ -36,6 +36,14 @@
 # from your regional registry (ARIN, APNIC, LACNIC, RIPE NCC, or AfriNIC.)
 #
 
+#zhaoonline
+172.16.0.250    rac1
+172.16.0.251    rac2
+172.16.0.252    rac3
+172.16.0.235    zhaodb
+192.168.0.201   zcode
+118.242.3.114   office  #8126
+
 42.120.17.124   cm-01
 42.120.17.125   cm-02
 42.120.17.126   cm-03
