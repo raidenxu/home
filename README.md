@@ -4,11 +4,14 @@ For Mac OS X, FreeBSD, Linux
 
 
 ## What's in it?
-* [vimsetting]
+* [vim]
+* [files]
+* [scripts]
+* [sbin]
 
 ## Others
 
 ### term screen
 
-    infocmp | sed -e 's/[sr]mcup=[^,]*,//' > /tmp/noaltscreen-terminfo
-    tic -o ~/.terminfo/ /tmp/noaltscreen-terminfo
+    `infocmp | sed -e 's/[sr]mcup=[^,]*,//' > /tmp/noaltscreen-terminfo`
+    `tic -o ~/.terminfo/ /tmp/noaltscreen-terminfo`
