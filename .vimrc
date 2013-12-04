@@ -125,6 +125,52 @@ set statusline+=\ (%l,%c)                       " 显示行数,列数
 set statusline+=\ %r%{CurDir()}%h               " 显示当前目录
 set statusline+=\ %h%1*%m%r%w%0*                " flag
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Buffer realted
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" When editing a file, always jump to the last known cursor position.
+" Don't do it when the position is invalid or when inside an event handler
+augroup Posrem
+  au!
+  autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
+augroup END
+
+" Don't close window, when deleting a buffer
+command! Bclose call <SID>BufcloseCloseIt()
+
+function! <SID>BufcloseCloseIt()
+    let l:currentBufNum = bufnr("%")
+    let l:alternateBufNum = bufnr("#")
+
+    if buflisted(l:alternateBufNum)
+        buffer #
+    else
+        bnext
+    endif
+
+    if bufnr("%") == l:currentBufNum
+        new
+    endif
+
+    if buflisted(l:currentBufNum)
+        execute "bdelete! ".l:currentBufNum
+    endif
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Files and backup
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set backupdir=~/.vimbak         " Set backup dir
+set directory=~/.vimbak         " Set work dir
+if has("vms")
+  set nobackup                  " do not keep a backup file, use versions instead
+else
+  set backup
+endif
 
 """"""""""""""""""""""""""""""
 " => Folding
