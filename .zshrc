@@ -9,7 +9,7 @@ ZSH=$HOME/.oh-my-zsh
 if [ `hostname` = 'Odin-Pro.local' ]; then
     ZSH_THEME="odin"
 else
-    ZSH_THEME="crcandy"
+    ZSH_THEME="odinman"
 fi
 
 # Example aliases

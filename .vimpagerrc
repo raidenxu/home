@@ -1,208 +1,120 @@
-" Maintainer:   Odin <odinmanlee@gmail.com>
-" Last change: 2013-03-26 13:36:23
-
-"VIM help tips:
-":help cmd    find normal mode command
-":help i_cmd    find insert mode command
-":help :cmd     find command-line command
-":help  'option     find the option help
-":set   option?     get the current value for the option
-
-" Sections:
-" ----------------------
-" *> General
-" *> Colors and Font
-" *> Fileformat
-" *> VIM userinterface
-" ------ *> Statusline
-" *> Visual
-" *> Moving around and tab
-" *> General Autocommand
-" *> Parenthesis/bracket expanding
-" *> General Abbrev
-" *> Editing mappings etc.
-" *> Command-line config
-" *> Buffer realted
-" *> Files and backup
-" *> Folding
-" *> Text option
-" ------ *> Indent
-" *> Spell checking
-" *> Plugin configuration
-" ------ *> Yank ring
-" ------ *> File explorer
-" ------ *> Minibuffer
-" ------ *> Tag list (ctags) - not used
-" ------ *> LaTeX Suite thing
-" *> Filetype generic
-" ------ *> Todo
-" ------ *> VIM
-" ------ *> HTML related
-" ------ *> Ruby & PHP section
-" ------ *> Python section
-" ------ *> Cheetah section
-" ------ *> Java section
-" ------ *> JavaScript section
-" ------ *> C mapping
-" ------ *> SML
-" ------ *> Scheme binding
-" *> Snippet
-" ------ *> Python
-" ------ *> javaScript
-" *> Cope
-" *> MISC
-"
-" Tip:
-" If you find anything that you can't understand than do this:
-" help keyword OR helpgrep keyword
-" Example:
-" Go into command-line mode and type helpgrep nocompatible, ie.
-" :helpgrep nocompatible
-" then press <leader>c to see the results, or :botright cw
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set runtimepath+=~/vim_setting,~/vim_setting/after
-" Use Vim settings, rather then Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
+" don't bother with vi compatibility
 set nocompatible
 
-" cursorline
+" enable syntax highlighting
+syntax enable
+
+set runtimepath+=$ODEVROOT/git/github/vim-golang
+
+" configure Vundle
+filetype on " without this vim emits a zero exit status, later, because of :ft off
+filetype off
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" install Vundle bundles
+if filereadable(expand("~/.vimrc.bundles"))
+  source ~/.vimrc.bundles
+  source ~/.vimrc.bundles.local
+endif
+
+" ensure ftdetect et al work by including this after the Vundle stuff
+filetype plugin indent on
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => system inv
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set shell=zsh
+set ambiwidth=double
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => indent
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set expandtab                                                " 在输入 tab 后, vim 用恰当的空格来填充这个 tab.
+set shiftwidth=4                                             " 设置自动缩进 4 个空格
+set softtabstop=4                                            " insert mode tab and backspace use 2 spaces
+set tabstop=8                                                " 实际的 tab 即为 8 个空格, tabstop = 4 is better for c programming
+set autoindent                                               "Auto indent
+set smartindent                                              "Smart indet
+"set cindent                                                 "C-style indenting
+"set cino=:0g0t0(sus                                         " values control how cindent indent code
+set wrap                                                     "Wrap line
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => encoding
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let &termencoding = &encoding
+set encoding=utf-8
+set fileencodings=utf-8,ucs-bom,cp936,big5,euc-jp,euc-kr,latin1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => vim ui
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set hidden                                                   " switch buffers without save
 set cursorline
 set cursorcolumn
+set autoread                                                 " reload files when changed on disk, i.e. via `git checkout`
+set backspace=2                                              " Fix broken backspace in some setups
+set backupcopy=yes                                           " see :help crontab
+set clipboard=unnamed                                        " yank and paste with the system clipboard
+set directory-=.                                             " don't store swapfiles in the current directory
+set ignorecase                                               " case-insensitive search
+set laststatus=2                                             " always show statusline
+set nolist                                                     " show trailing whitespace
+set listchars=tab:▸\ ,trail:▫
+set ruler                                                    " show where you are
+set scrolloff=3                                              " show context above/below cursorline
+set smartcase                                                " case-sensitive search if any caps
+set wildignore=log/**,node_modules/**,target/**,tmp/**,*.rbc
+set wildmenu                                                 " show a navigable menu for tab completion
+set wildmode=longest,list,full
+set pastetoggle=<F3>                                         " 切换paste模式
+set number                                                   " show line numbers
+set cmdheight=1                                              " The commandbar is 2 high
+set whichwrap+=b,s,<,>,[,],h,l                               " Bbackspace and cursor keys wrap to
+set incsearch                                                " 随打随找
+set hlsearch                                                 " highlight search content
+set showmatch                                                " show matching bracet
+set matchtime=5                                              " show matching time
+set mat=3                                                    " How many tenths of a second to blink
+set formatoptions=tcrqmB
+set splitbelow
+set nostartofline
+set showcmd                                                  " display incomplete command
+set showmode                                                 " show editor mode, such as command, insert or replace, visual as messa
+set confirm                                                  " with dialog support confirm({msg} [, {choices} [, {default} [, {type}]]])
 
-"OS value. return win32 FreeBSD or mac
-function! MySys()
-  return "FreeBSD"
-endfunction
-
-"Set shell to be tcsh
-if MySys() == "FreeBSD" || MySys() == "mac"
-  set shell=tcsh
-endif
-
-"Enable filetype plugin
-if has("eval")
-    filetype plugin indent on
-endif
-
-" default mapping
-let mapleader=","               " Set mapleader
-" let g:mapleader=","           " Set gui mapleader
-nmap <leader>w :w!<cr>          " Fast Saving
-map Q gq            " Don't use Ex mode, use Q for formatting
-
-"set mouse=i                     " enable mouse(when Insert Mode)
-set backupcopy=yes              "for crontab
-set mousemodel=popup            " Use extend mouse mode to search word using SHIFT+left-mouse
-set history=50                  " keep 50 lines of command line history
-set viminfo='500                " Sets 500 lines of history VIM har to remember
-
-" Switch syntax highlighting on, when the terminal has color
-" Also switch on highlighting the last used search pattern.
-if &t_Co > 2 || has("gui_running")
-  syntax on
-  set t_Co=256
-  set background=dark
-  let g:solarized_termtrans=1
-  let g:solarized_termcolors=256
-  let g:solarized_visibility = "high"
-  let g:solarized_contrast = "high"
-  "colors odinman
-  colors solarized
-
-  "internationalization
-  "I only work in Win2k Chinese version
-  if has("multi_byte")
-      let &termencoding = &encoding
-      set encoding=utf-8
-      " Set fileencoding priority
-      "if getfsize(expand("%")) > 0
-      "    set fileencodings=utf-8,ucs-bom,cp936,big5,euc-jp,euc-kr,latin1
-      "else
-      "    set fileencodings=cp936,big5,euc-jp,euc-kr,latin1
-      "endif
-      set fileencodings=utf-8,ucs-bom,cp936,big5,euc-jp,euc-kr,latin1
-  endif
-
-  "if you use vim in tty,
-  "'uxterm -cjk' or putty with option 'Treat CJK ambiguous characters as wide' on
-  "if has("ambiwidth")
-  "    set ambiwidth=double
-  "endif
-  set ambiwidth=double
-
-  if has("gui_running")
-      set guioptions-=l
-
-      "colo darkblue
-
-      if MySys()=="win32"
-          "start gvim maximized
-          if has("autocmd")
-              autocmd GUIEnter * simalt ~x
-          endif
-      endif
-      if has("cursorline")
-          set cursorline
-          "hi cursorline guibg=#333333
-          "hi CursorColumn guibg=#333333
-      endif
-  endif
-endif
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Colors
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set t_Co=256
+set background=dark
+let g:solarized_termtrans=1
+let g:solarized_termcolors=256
+let g:solarized_visibility = "high"
+let g:solarized_contrast = "high"
+colors solarized
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Fileformat
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Favorite filetype
 set fileformats=unix,dos
-
-nmap <leader>fd :se ff=dos<cr>
-nmap <leader>fu :se ff=unix<cr>
-
 let g:explHideFiles='^\.,\.com$,\.doc$,\.pdf$,\.dvi$,\.gz$,\.exe$,\.zip$ \.ps$,\.ppt$'
 
+" Enable basic mouse behavior such as resizing buffers.
+"set mouse=a
+if exists('$TMUX')  " Support resizing in tmux
+  set ttymouse=xterm2
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => VIM userinterface
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set scrolloff=7                 " Set 7 lines to the curors - when moving vertical..
-set wildmenu                    " Turn on WiLd menu
-set ruler                       " show the cursor position all the time
-set cmdheight=1                 " The commandbar is 2 high
-set lazyredraw                  " Do not redraw, when running macros.. lazyredraw
-set hidden                      " Change buffer - without saving
-set backspace=indent,eol,start  " allow backspacing over everything in insert mode
-set whichwrap+=<,>,h,l          " Bbackspace and cursor keys wrap to
-set incsearch                   " 随打随找
-set hlsearch                    " highlight search content
-set magic                       " set magic on
-set noerrorbells                " no sounds on error
-set visualbell                  " when error, flash as visual bell
-set showmatch                   " show matching bracet
-set matchtime=5                 " show matching time
-set mat=3                       " How many tenths of a second to blink
-set whichwrap=b,s,<,>,[,]
-set formatoptions=tcrqmB
-set splitbelow
-set nostartofline
-set showcmd                     " display incomplete command
-set showmode                    " show editor mode, such as command, insert or replace, visual as messa
-set confirm                     " with dialog support confirm({msg} [, {choices} [, {default} [, {type}]]])
-
-""""""""""""""""""""""""""""""
 " => Statusline
-""""""""""""""""""""""""""""""
-"Always hide the statusline
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set laststatus=2
-
 function! CurDir()
     let curdir = substitute(getcwd(), '/home/odin/', "~/", "g")
     return curdir
 endfunction
-
 "Format the statusline
 set statusline=
 set statusline+=%f                              " path to the file in the buffer, relative to current directory
@@ -213,151 +125,14 @@ set statusline+=\ (%l,%c)                       " 显示行数,列数
 set statusline+=\ %r%{CurDir()}%h               " 显示当前目录
 set statusline+=\ %h%1*%m%r%w%0*                " flag
 
+
 """"""""""""""""""""""""""""""
-" => Visual
-""""""""""""""""""""""""""""""
-" none
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Moving around and tab page
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Buffer switch
-nnoremap <silent> <F6> :bn<CR>
-inoremap <silent> <F6> <ESC>:bn<CR>
-
-"Tab configuration
-map <leader>tn :tabnew %<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
-if has("usetab")
-    set switchbuf=usetab
-endif
-if has("stal")
-    set showtabline=2
-endif
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General Autocommand
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>cd :cd %:p:h<cr>          "Switch to current dir
-
-"autocmd BufNewFile *.cpp 0r ~/.vim/skeleton/skeleton.cpp
-"autocmd BufNewFile *.h 0r ~/.vim/skeleton/skeleton.h
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Parenthesis/bracket expanding
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-vnoremap $1 <esc>`>a)<esc>`<i(<esc>
-"加()
-vnoremap $2 <esc>`>a]<esc>`<i[<esc>
-"加[]
-vnoremap $3 <esc>`>a}<esc>`<i{<esc>
-"加{}
-vnoremap $$ <esc>`>a"<esc>`<i"<esc>
-"加""
-vnoremap $q <esc>`>a'<esc>`<i'<esc>
-"加''
-
-"Map auto complete of (, ", ', [
-"http://www.vim.org/tips/tip.php?tip_id=153
-"
-"ino ( ()<esc>:let leavechar=")"<cr>i
-"ino { {}<esc>:let leavechar="}"<cr>i
-"ino $q ''<esc>:let leavechar="'"<cr>i
-"ino $w ""<esc>:let leavechar='"'<cr>i
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" General Abbrevs
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-iab odate <c-r>=strftime("%Y%m%d%H%M")<cr>
-iab owdate <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Editing mappings etc.
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Move a line of text using control
-nmap <C-j> mz:m+<cr>`z
-nmap <C-k> mz:m-2<cr>`z
-vmap <C-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <C-k> :m'<-2<cr>`>my`<mzgv`yo`z
-
-if MySys() == "mac"
-    nmap <D-j> <M-j>
-    nmap <D-k> <M-k>
-    vmap <D-j> <M-j>
-    vmap <D-k> <M-k>
-endif
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Command-line config
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"   Edit another file in the same directory as the current file
-"   uses expression to extract path from current file's path
-"   (thanks Douglas Potts)
-if has("unix")
-    map ,e :e <C-R>=expand("%:p:h") . "/"<CR>
-else
-    map ,e :e <C-R>=expand("%:p:h") . "\\"<CR>
-endif
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Buffer realted
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" When editing a file, always jump to the last known cursor position.
-" Don't do it when the position is invalid or when inside an event handler
-augroup Posrem
-  au!
-  autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal g`\"" |
-    \ endif
-augroup END
-
-" Don't close window, when deleting a buffer
-command! Bclose call <SID>BufcloseCloseIt()
-
-function! <SID>BufcloseCloseIt()
-    let l:currentBufNum = bufnr("%")
-    let l:alternateBufNum = bufnr("#")
-
-    if buflisted(l:alternateBufNum)
-        buffer #
-    else
-        bnext
-    endif
-
-    if bufnr("%") == l:currentBufNum
-        new
-    endif
-
-    if buflisted(l:currentBufNum)
-        execute "bdelete! ".l:currentBufNum
-    endif
-endfunction
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Files and backup
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set backupdir=~/.vimbak         " Set backup dir
-set directory=~/.vimbak         " Set work dir
-if has("vms")
-  set nobackup                  " do not keep a backup file, use versions instead
-else
-  set backup
-endif
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Folding
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Enable folding, I find it very useful
+""""""""""""""""""""""""""""""
 set foldenable
 set foldlevel=0
 set foldmethod=marker
 set foldlevelstart=-1
-
 function! Fold()
   setl foldmethod=marker
   setl foldlevelstart=1
@@ -372,83 +147,17 @@ function! Fold()
   set foldtext=v:folddashes.substitute(getline(v:foldstart),'/\\*\\\|\\*/\\\|{{{\\d\\=','','g')
 endfunction
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Text options
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set expandtab                   " 在输入 tab 后, vim 用恰当的空格来填充这个 tab.
-set shiftwidth=4                " 设置自动缩进 4 个空格
-set tabstop=4                   " 实际的 tab 即为 4 个空格, tabstop = 4 is better for c programming
+" => General Abbrevs
+iab odate <c-r>=strftime("%Y%m%d%H%M")<cr>
+iab owdate <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
 
-map <leader>t2 :set shiftwidth=2<cr>
-map <leader>t4 :set shiftwidth=4<cr>
-autocmd FileType xhtml,html,python,vim,javascript,sql setl shiftwidth=2    " (setl)仅对当前buffer生效
-autocmd FileType xhtml,html,python,vim,javascript,sql setl tabstop=2
 
 """"""""""""""""""""""""""""""
-" => Indent
+" => Filetype generic
 """"""""""""""""""""""""""""""
-set autoindent        "Auto indent
-set smartindent       "Smart indet
-set cindent           "C-style indenting
-set cino=:0g0t0(sus   " values control how cindent indent code
-set wrap              "Wrap line
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Spell checking
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>sn ]s
-map <leader>sp [s
-map <leader>sa zg
-map <leader>s? z=
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Plugin configuration
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-  """"""""""""""""""""""""""""""
-  " Vim Grep
-  """"""""""""""""""""""""""""""
-  let Grep_Skip_Dirs = 'RCS CVS SCCS .svn'
-  let Grep_Cygwin_Find = 1
-
-  """"""""""""""""""""""""""""""
-  " Yank Ring
-  """"""""""""""""""""""""""""""
-  map <leader>y :YRShow<cr>
-
-  """"""""""""""""""""""""""""""
-  " File explorer
-  """"""""""""""""""""""""""""""
-  let g:explVertical=1            "Split vertically
-  let g:explWinSize=35            "Window size
-  let g:explSplitLeft=1
-  let g:explSplitBelow=1
-  let g:explHideFiles='^\.,.*\.class$,.*\.swp$,.*\.pyc$,.*\.swo$,\.DS_Store$'   "Hide some files
-  let g:explDetailedHelp=0        "Hide the help thing..
-
-  """"""""""""""""""""""""""""""
-  " LaTeX Suite things
-  """"""""""""""""""""""""""""""
-  set grepprg=grep\ -nH\ $*
-  let g:Tex_DefaultTargetFormat="pdf"
-  let g:Tex_ViewRule_pdf='xpdf'
-
-  "Bindings
-  autocmd FileType tex map <silent><leader><space> :w!<cr> :silent! call Tex_RunLaTeX()<cr>
-
-  "Auto complete some things ;)
-  autocmd FileType tex inoremap $i \indent
-  autocmd FileType tex inoremap $* \cdot
-  autocmd FileType tex inoremap $i \item
-  autocmd FileType tex inoremap $m \[<cr>\]<esc>O
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Filetype generic
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+  autocmd FileType xhtml,html,python,vim,javascript,sql setl shiftwidth=2    " (setl)仅对当前buffer生效
+  autocmd FileType xhtml,html,python,vim,javascript,sql setl tabstop=2
   autocmd FileType text setlocal textwidth=78                   " For all text files set 'textwidth' to 78 characters.
-  "autocmd BufNewFile,BufRead *.todo so ~/vim_local/syntax/amido.vim  " todo
 
   """"""""""""""""""""""""""""""
   " HTML related
@@ -471,7 +180,7 @@ map <leader>s? z=
   " Ruby & PHP section
   """"""""""""""""""""""""""""""
   autocmd BufNewFile,BufRead *.m   setlocal filetype=php       " .m is php
-  autocmd BufNewFile *.m,*.php 0r ~/vim_setting/skeleton/skeleton.php
+  autocmd BufNewFile *.m,*.php 0r ~/.vim/skeleton/skeleton.php
   autocmd FileType ruby map <buffer> <leader><space> :w!<cr>:!ruby %<cr>
   autocmd FileType php compiler php
   autocmd FileType php map <buffer> <leader><space> <leader>cd:w<cr>:make %<cr>
@@ -482,14 +191,19 @@ map <leader>s? z=
   "let php_folding=1
   "let php_noShortTags=1
 
+  """"""""""""""""""""""""""""""
+  " Golang section
+  """"""""""""""""""""""""""""""
+  autocmd BufNewFile,BufRead *.go   setlocal filetype=go       " .go is go
+
 
   """"""""""""""""""""""""""""""
   " Python section
   """"""""""""""""""""""""""""""
   "Run the current buffer in python - ie. on leader+space
-  autocmd FileType python so ~/vim_setting/syntax/python.vim
+  autocmd FileType python so ~/.vim/syntax/python.vim
   autocmd FileType python map <buffer> <leader><space> :w!<cr>:!python %<cr>
-  autocmd FileType python so ~/vim_setting/plugin/python_fold.vim
+  autocmd FileType python so ~/.vim/plugin/python_fold.vim
 
   "Set some bindings up for 'compile' of python
   autocmd FileType python set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\"
@@ -514,12 +228,6 @@ map <leader>s? z=
   endfunction
   autocmd FileType python vmap <F7> :call Python_Eval_VSplit()<cr>
 
-  """"""""""""""""""""""""""""""
-  " Cheetah section
-  """""""""""""""""""""""""""""""
-  autocmd FileType cheetah set ft=xml
-  autocmd FileType cheetah set syntax=cheetah
-
   """""""""""""""""""""""""""""""
   " Vim section
   """""""""""""""""""""""""""""""
@@ -532,7 +240,7 @@ map <leader>s? z=
   autocmd FileType java inoremap <buffer> <C-t> System.out.println();<esc>hi
 
   "Java comments
-  autocmd FileType java source ~/vim_setting/macros/jcommenter.vim
+  autocmd FileType java source ~/.vim/macros/jcommenter.vim
   autocmd FileType java let b:jcommenter_class_author='Odin Lee (odin@madhouse-inc.com)'
   autocmd FileType java let b:jcommenter_file_author='Odin Lee (odin@madhouse-inc.com)'
   autocmd FileType java map <buffer> <F2> :call JCommentWriter()<cr>
@@ -576,11 +284,6 @@ map <leader>s? z=
   """""""""""""""""""""""""""""""
   autocmd FileType c map <buffer> <leader><space> :w<cr>:!gcc %<cr>
 
-  """""""""""""""""""""""""""""""
-  " SML
-  """""""""""""""""""""""""""""""
-  autocmd FileType sml map <silent> <buffer> <leader><space> <leader>cd:w<cr>:!sml %<cr>
-
   """"""""""""""""""""""""""""""
   " Scheme bidings
   """"""""""""""""""""""""""""""
@@ -593,29 +296,70 @@ map <leader>s? z=
   """""""""""""""""""""""""""""""
   autocmd FileType manodin setlocal laststatus=0
 
-  """"""""""""""""""""""""""""""
-  " SVN section
-  """""""""""""""""""""""""""""""
-  map <F10> :botright vnew<CR>:read !svn diff<CR>:set syntax=diff buftype=nofile<CR>gg
+  " fdoc is yaml
+  autocmd BufRead,BufNewFile *.fdoc set filetype=yaml
+  " md is markdown
+  autocmd BufRead,BufNewFile *.md set filetype=markdown
+  " extra rails.vim help
+  autocmd User Rails silent! Rnavcommand decorator      app/decorators            -glob=**/* -suffix=_decorator.rb
+  autocmd User Rails silent! Rnavcommand observer       app/observers             -glob=**/* -suffix=_observer.rb
+  autocmd User Rails silent! Rnavcommand feature        features                  -glob=**/* -suffix=.feature
+  autocmd User Rails silent! Rnavcommand job            app/jobs                  -glob=**/* -suffix=_job.rb
+  autocmd User Rails silent! Rnavcommand mediator       app/mediators             -glob=**/* -suffix=_mediator.rb
+  autocmd User Rails silent! Rnavcommand stepdefinition features/step_definitions -glob=**/* -suffix=_steps.rb
+  " automatically rebalance windows on vim resize
+  autocmd VimResized * :wincmd =
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => MISC
+" => Plugin
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" plugin timestamp
-"let g:timestamp_regexp = '\v\C%(<%(Last %([cC]hanged?|modified)|Modified)\s*:\s*)@<=\a+ \d{2} \a+ \d{4} \d{2}:\d{2}:\d{2}%(\s+[AP]M)?%(\s+\a+)?|TIMESTAMP', 'g:timestamp_regexp'
-"let g:timestamp_regexp = '\v\c%(last %(changed?|modified):\s+)@<=\d{4} \a{3} \d{2}'
-let g:timestamp_regexp = '\v\C%(<%(Last %([cC]hanged?|modified)|Modified)\s*:\s*)@<=\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}%(\s+\a+)?|TIMESTAMP'
+let g:timestamp_regexp = '\v\C%(<%(Last %([cC]hanged?|modified)|Modified)\s*:\s*)@<=\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}%(\s+\a+)?'
 let g:timestamp_rep = '%Y-%m-%d %H:%M:%S'
 let g:timestamp_modelines = 12
+let g:ctrlp_match_window = 'order:ttb,max:20'
+let g:NERDSpaceDelims=1
+let g:gitgutter_enabled = 0
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => TOGGLE
+" => TOGGLE & Mapping
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" keyboard shortcuts
+let mapleader = ','
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+map <leader>l :Align
+nmap <leader>a :Ack 
+nmap <leader>b :CtrlPBuffer<CR>
+nmap <leader>d :NERDTreeToggle<CR>
+nmap <leader>f :NERDTreeFind<CR>
+nmap <leader>t :CtrlP<CR>
+nmap <leader>T :CtrlPClearCache<CR>:CtrlP<CR><CR>
+nmap <leader>] :TagbarToggle<CR>
+nmap <leader><space> :call whitespace#strip_trailing()<CR>
+nmap <leader>g :GitGutterToggle<CR>
+nmap <leader>c <Plug>Kwbd
+nmap <leader>fd :se ff=dos<cr>
+nmap <leader>fu :se ff=unix<cr>
+map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+" => Move a line of text using control
+nmap <C-j> mz:m+<cr>`z
+nmap <C-k> mz:m-2<cr>`z
+vmap <C-j> :m'>+<cr>`<my`>mzgv`yo`z
+vmap <C-k> :m'<-2<cr>`>my`<mzgv`yo`z
+
+"for delete register
+nnoremap d "_d
+nnoremap s "_s
+vnoremap d "_d
+vnoremap s "_s
+vnoremap <leader>p "_dP
+
 " plugin NERDTree
 nmap <F1> :NERDTreeToggle<CR>
-" 切换paste模式
-set pastetoggle=<F3>
 
 " 折叠命令
 map <F5> zR
@@ -624,7 +368,18 @@ map <F5> zR
 map <F8> zM
 map <F9> <C-a>
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Parenthesis/bracket expanding
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+vnoremap $1 <esc>`>a)<esc>`<i(<esc> "加()
+vnoremap $2 <esc>`>a]<esc>`<i[<esc> "加[]
+vnoremap $3 <esc>`>a}<esc>`<i{<esc> "加{}
+vnoremap $$ <esc>`>a"<esc>`<i"<esc> "加""
+vnoremap $q <esc>`>a'<esc>`<i'<esc> "加''
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Map key to toggle opt
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function MapToggle(key, opt)
   let cmd = ':set '.a:opt.'! \| set '.a:opt."?\<CR>"
   exec 'nnoremap '.a:key.' '.cmd
@@ -636,11 +391,32 @@ command -nargs=+ MapToggle call MapToggle(<f-args>)
 MapToggle <F2> hlsearch
 " 切换大小写敏感
 MapToggle <F4> ignorecase
-" 显示特殊字符
-set listchars=tab:>-,trail:-,eol:$,nbsp:%,extends:>,precedes:<
 MapToggle <F6> list
 " Behavior-altering option toggles
 MapToggle <F7> scrollbind
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if executable('ag')
+  let g:ackprg = 'ag --nogroup --column'
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+  " Use Ag over Grep
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+  set grepprg=ag\ --nogroup\ --nocolor
 
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Fix Cursor in TMUX
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if exists('$TMUX')
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif

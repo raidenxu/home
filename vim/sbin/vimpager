@@ -259,7 +259,7 @@ do_ptree() {
 		ps | awk '{ print $1 "\t" $2 "\t" $NF }' | awk_pstree $$
 	else
 		# Tested on Linux and OS X
-		ps awo pid=,ppid=,comm= | awk_pstree $$
+		ps awo pid=,ppid=,command= | awk_pstree $$
 	fi
 }
 
