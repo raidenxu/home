@@ -1,6 +1,6 @@
 # Odin's UNIX/Linux Home Dir Setting
 
-For Mac OS X, FreeBSD, Linux
+For Mac OS X, FreeBSD, Linux Home dir
 
 
 ## What's in it?
