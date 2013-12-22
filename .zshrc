@@ -6,11 +6,12 @@ ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 #ZSH_THEME="robbyrussell"
-if [ `hostname` = 'Odin-Pro.local' ]; then
-    ZSH_THEME="odin"
-else
-    ZSH_THEME="odinman"
-fi
+#if [ `hostname` = 'Odin-Pro.local' ]; then
+#    ZSH_THEME="lyodina"
+#else
+#    ZSH_THEME="odinman"
+#fi
+ZSH_THEME="lyodina"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -43,6 +44,8 @@ plugins=(git osx svn tmux zsh-vim-mode history-substring-search zsh-syntax-highl
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
+[[ -n "$SSH_CLIENT" ]] || export DEFAULT_USER="Odin"
+
 export PATH=/opt/local/bin:/opt/local/sbin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:/usr/X11R6/bin:/Users/Odin/sbin:/services/hiphop-php/src/hphp:/services/hiphop-php/src/hphpi:/Applications/Xcode.app/Contents/Developer/usr/bin
 
 ## zsh-syntax-highlighting configuration
